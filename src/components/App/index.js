@@ -4,45 +4,60 @@ import ResultsDisplay from "../ResultsDisplay";
 import { questionData } from "../../libs/questionData";
 import { useState, useReducer } from "react";
 
-const initalState = {quizResults: []}
+const initalState = { quizResults: [] };
 
-//Creaye a reducer function which well be used with useReducer 
-//Take state and action 
-//Return a new immutable state
-//ADD_ANSWER 
-// - new state updates quizResults array 
-// - add the user's choice 
+//Creaye a reducer function which well be used with useReducer ✅
+//Take state and action ✅
+//Return a new immutable state ✅
+//ADD_ANSWER
+// - new state updates quizResults array
+// - add the user's choice
 // - make payload available
 // - this action is whatever we dispatch in the app
 
-const action = {
-  type: 'ADD_ANSWER',
-  type: 'RESET_ANSWERS'
+// const action = {
+//   type: 'ADD_ANSWER',
+//   type: 'RESET_ANSWERS'
 
+// }
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "ADD_ANSWER": { 
+      const newAnswer = action.choiceId;
+      return [...state, newAnswer];
+    }
+
+    case "RESET_ANSWERS":{
+      return [...state];
+    }
+
+
+      // const newResult = [...state, newResult];
+      // return newResult;
+
+    // case `RESET_ANSWERS`:
+    //   const theAnswer = [...state, ];
+    //   return [...state, ]
+
+      // initalState.quizResults 
+
+    default:
+      return state;
+  }
+
+  return { ...state };
 }
-
-function reducer (state, action) {
-switch (action.type) {
-  case 'ADD_ANSWER':
-  const newResult = action.result
-  return {...state, newResult} 
-
-  // case 'RESET ANSWERS':
-
-  default: state;
-}
-
-return {...state}
-
-}
-
 
 function App() {
   const [result, setResult] = useState("...pending");
+  const [state, dispatch] = useReducer(reducer, initalState);
 
   function handleAnswerClick(choiceId) {
     console.log(`handleAnswerClick ran, user clicked choice "${choiceId}"`);
-    // TODO: Write your code for step 5 here!
+    dispatch({
+      type: "ADD_ANSWER", payload: {newAnswer}
+    });
   }
 
   function handleResetButtonClick() {
@@ -72,7 +87,5 @@ function App() {
     </main>
   );
 }
-
-
 
 export default App;
