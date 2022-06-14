@@ -2,7 +2,40 @@ import "./App.css";
 import QuestionDisplay from "../QuestionDisplay";
 import ResultsDisplay from "../ResultsDisplay";
 import { questionData } from "../../libs/questionData";
-import { useState } from "react";
+import { useState, useReducer } from "react";
+
+const initalState = {quizResults: []}
+
+//Creaye a reducer function which well be used with useReducer 
+//Take state and action 
+//Return a new immutable state
+//ADD_ANSWER 
+// - new state updates quizResults array 
+// - add the user's choice 
+// - make payload available
+// - this action is whatever we dispatch in the app
+
+const action = {
+  type: 'ADD_ANSWER',
+  type: 'RESET_ANSWERS'
+
+}
+
+function reducer (state, action) {
+switch (action.type) {
+  case 'ADD_ANSWER':
+  const newResult = action.result
+  return {...state, newResult} 
+
+  // case 'RESET ANSWERS':
+
+  default: state;
+}
+
+return {...state}
+
+}
+
 
 function App() {
   const [result, setResult] = useState("...pending");
@@ -39,5 +72,7 @@ function App() {
     </main>
   );
 }
+
+
 
 export default App;
