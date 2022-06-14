@@ -24,12 +24,14 @@ const initalState = { quizResults: [] };
 function reducer(state, action) {
   switch (action.type) {
     case "ADD_ANSWER": { 
-      const newAnswer = action.choiceId;
-      return [...state, newAnswer];
+      const newAnswer = action.payload;
+      // const newQuizResults =  [...state.quizResults, newAnswer];
+      // return {quizResults: newQuizResults}
+      return {quizResults:[...state.quizResults, newAnswer]}
     }
 
     case "RESET_ANSWERS":{
-      return [...state];
+      return {quizResults: []};
     }
 
 
@@ -56,12 +58,13 @@ function App() {
   function handleAnswerClick(choiceId) {
     console.log(`handleAnswerClick ran, user clicked choice "${choiceId}"`);
     dispatch({
-      type: "ADD_ANSWER", payload: {newAnswer}
+      type: "ADD_ANSWER", payload: choiceId
     });
+    console.log(state)
   }
 
   function handleResetButtonClick() {
-    // TODO: Write your code for step 6 here!
+    console.log(state)// TODO: Write your code for step 6 here!
   }
 
   function calculateResults() {
