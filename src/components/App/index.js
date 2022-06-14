@@ -6,27 +6,19 @@ import { useState, useReducer } from "react";
 
 const initalState = { quizResults: [] };
 
-//Creaye a reducer function which well be used with useReducer ✅
+//Create reducer function which well be used with useReducer ✅
 //Take state and action ✅
 //Return a new immutable state ✅
-//ADD_ANSWER
-// - new state updates quizResults array
-// - add the user's choice
-// - make payload available
-// - this action is whatever we dispatch in the app
-
-// const action = {
-//   type: 'ADD_ANSWER',
-//   type: 'RESET_ANSWERS'
-
-// }
+//ADD_ANSWER ✅
+// - new state updates quizResults array ✅
+// - add the user's choice ✅
+// - make payload available ✅
+// - this action is whatever we dispatch in the app ✅
 
 function reducer(state, action) {
   switch (action.type) {
     case "ADD_ANSWER": { 
       const newAnswer = action.payload;
-      // const newQuizResults =  [...state.quizResults, newAnswer];
-      // return {quizResults: newQuizResults}
       return {quizResults:[...state.quizResults, newAnswer]}
     }
 
@@ -34,21 +26,9 @@ function reducer(state, action) {
       return {quizResults: []};
     }
 
-
-      // const newResult = [...state, newResult];
-      // return newResult;
-
-    // case `RESET_ANSWERS`:
-    //   const theAnswer = [...state, ];
-    //   return [...state, ]
-
-      // initalState.quizResults 
-
     default:
       return state;
   }
-
-  return { ...state };
 }
 
 function App() {
@@ -65,10 +45,52 @@ function App() {
 
   function handleResetButtonClick() {
     console.log(state)// TODO: Write your code for step 6 here!
+    dispatch({type: 'RESET_ANSWERS'})
   }
 
   function calculateResults() {
     // TODO: Write your code for step 7 here!
+    /*
+      -use state from useReducer 
+    - collect all the answers 
+    - calculate which choice (a,b,c or d) was clicked the most
+    - set the result state with it
+    */
+    const answerArr = [...state.quizResults] 
+    console.log(answerArr)
+
+    let mf = 1;
+    let m = 0;
+    let item;
+    for (let i=0; i<answerArr.length; i++)
+        {
+        for (let j=i; j<answerArr.length; j++)
+        {
+                if (answerArr[i] == answerArr[j])
+                 m++;
+                if (mf < m)
+                {
+                  mf = m; 
+                  item = answerArr[i];
+                }
+        }
+        m = 0;
+}
+console.log(`${item} ( ${mf} times ) `) ;
+setResult(mf) 
+
+  //   let max = 0
+  //   let maxChar ='';
+  //   answerArr.forEach(function(char){
+  //     for (let i = 0; i < answerArr.length; i++){
+        
+  //     if(answerArr.length > max) {
+  //       max = answerArr.length
+  //       maxChar = char
+  //     }
+  //    }
+  //   })
+  //  return maxChar
   }
 
   return (
